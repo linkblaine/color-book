@@ -1,56 +1,26 @@
 $(document).ready(function(){
 
-  paintBrush = new drawTool();
+  paintBrush = new PaintBrush();
+  paintBrush.resizeCanvas($("canvas").parent().innerWidth() ,
+                          $("canvas").parent().innerHeight())
 
   $('#color-area').on('mousedown',function(e){
-    paintBrush.startBrush(e.offsetX, e.offsetY);
-  });
-
-  $('#color-area').on('mouseup',function(e){
-    paintBrush.endBrush();
+    paintBrush.startPath(e.offsetX, e.offsetY);
   });
 
   $('#color-area').on('mousemove',function(e){
-    paintBrush.draw(e.offsetX ,e.offsetY); 
+    paintBrush.addPath(e.offsetX ,e.offsetY); 
   });
 
+  $('#color-area').on('mouseup', function(e){
+    paintBrush.endPath();
+  });
+  
+
+  $(window).on('resize',function(e){
+    paintBrush.resizeCanvas($("canvas").parent().innerWidth(),
+                            $("canvas").parent().innerHeight())
+  });
 });
 
-
-var drawTool = function(){
-  var fillColor = "#B24026"; 
-  var canvas    = $('#color-area')[0]; 
-  var brush     = canvas.getContext('2d');
-  var isDrawing = false;
-
-  brush.fillStyle = fillColor;
-  brush.strokeStyle = fillColor; 
-  brush.lineWidth = 5; 
-
-  var startPath = function(x,y){
-    isDrawing = true;
-    brush.moveTo(x,y);
-    brush.lineJoin = brush.lineCap = 'round';
-    return false;
-  };
-
-  var endPath = function(){
-    isDrawing = false;
-    return false;
-  };
-
-  var addPoint = function(x,y){
-    if(isDrawing){
-      brush.lineTo(x,y);
-      brush.stroke();
-    }
-    return false;
-  };
-
-  return {
-    startBrush: startPath,
-    endBrush:   endPath,
-    draw:       addPoint
-  }
-};
 

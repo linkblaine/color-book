@@ -1,40 +1,54 @@
 var PaintBrush = function(){
-  this.canvas = $('#color-area')[0]; 
-  this.isDrawing = false;
-  this.brush = this.canvas.getContext('2d');
-  this.fillColor = "#B24026"; 
+  var self = this;
+  var canvas = $('#color-area')[0]; 
+  self.isDrawing = false;
+  self.brush = canvas.getContext('2d');
+  self.fillColor = 'rgb(247,194,114)';
+
 };
 
 PaintBrush.prototype.startPath = function(x,y){
-  this.setBrushStyle();
-  this.isDrawing = true;
-  this.brush.beginPath();
-  this.brush.moveTo(x,y);
+  var self = this;
+  self.setBrushStyle();
+  self.isDrawing = true;
+  self.brush.beginPath();
+  self.brush.moveTo(x,y);
 };
 
 PaintBrush.prototype.endPath = function(){
-  this.isDrawing = false;
-  this.brush.closePath();
+  var self = this;
+  self.isDrawing = false;
+  self.brush.closePath();
 };
 
 PaintBrush.prototype.addPath = function(x,y){
-  if(this.isDrawing){
-    this.brush.lineTo(x,y);
-    this.brush.stroke();
+  var self = this;
+  if(self.isDrawing){
+    self.brush.lineTo(x,y);
+    self.brush.stroke();
   }
 };
 
 PaintBrush.prototype.resizeCanvas = function(width, height){
-  this.brush.canvas.width = width;
-  this.brush.canvas.height = height;
+  var self = this;
+  self.brush.canvas.width = width;
+  self.brush.canvas.height = height;
 };
 
 
 PaintBrush.prototype.setBrushStyle = function(){
-  this.brush.lineWidth = 5; 
-  this.brush.lineJoin = 'round';
-  this.brush.lineCap = 'round';
-  this.brush.strokeStyle = this.fillColor; 
-  this.brush.shadowBlur = 10;
-  this.brush.shadowColor = 'rgb(0, 0, 0)';
+  var self = this;
+  self.brush.lineWidth = 3; 
+  self.brush.lineJoin = 'round';
+  self.brush.lineCap = 'round';
+  self.brush.strokeStyle = self.fillColor; 
+  self.brush.shadowBlur = 1;
+  self.brush.shadowColor = 'rgb(0, 0, 0)';
+};
+
+PaintBrush.prototype.setImage = function(){
+  var self = this;
+  img = new Image()
+  img.src = 'image.png'
+  self.brush.drawImage(img,0,0);
 };

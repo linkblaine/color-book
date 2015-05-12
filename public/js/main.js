@@ -4,6 +4,7 @@ $(document).ready(function(){
   paintBrush.resizeCanvas($("canvas").parent().innerWidth() ,
                           $("canvas").parent().innerHeight())
 
+
   $('#color-area').on('mousedown',function(e){
     paintBrush.startPath(e.offsetX, e.offsetY);
   });
@@ -16,10 +17,14 @@ $(document).ready(function(){
     paintBrush.endPath();
   });
   
+  $('#btn-draw').on('click', function(e){
+    paintBrush.setImage();
+  });
 
   $(window).on('resize',function(e){
     paintBrush.resizeCanvas($("canvas").parent().innerWidth(),
-                            $("canvas").parent().innerHeight())
+                            $("canvas").parent().innerHeight());
+
   });
 });
 

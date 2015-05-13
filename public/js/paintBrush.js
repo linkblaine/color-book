@@ -1,10 +1,9 @@
-var PaintBrush = function(){
+var PaintBrush = function(canvas, rgba){
   var self = this;
-  var canvas = $('#color-area')[0]; 
+  var canvas = $(canvas)[0]; 
   self.isDrawing = false;
   self.brush = canvas.getContext('2d');
-  self.fillColor = 'rgb(247,194,114)';
-
+  self.color = rgba 
 };
 
 PaintBrush.prototype.startPath = function(x,y){
@@ -41,9 +40,10 @@ PaintBrush.prototype.setBrushStyle = function(){
   self.brush.lineWidth = 3; 
   self.brush.lineJoin = 'round';
   self.brush.lineCap = 'round';
-  self.brush.strokeStyle = self.fillColor; 
-  self.brush.shadowBlur = 1;
-  self.brush.shadowColor = 'rgb(0, 0, 0)';
+  self.brush.strokeStyle = self.color; 
+  self.brush.fillStyle = self.color; 
+  self.brush.shadowBlur = 3;
+  self.brush.shadowColor = self.color;
 };
 
 PaintBrush.prototype.setImage = function(){

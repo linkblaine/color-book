@@ -26,7 +26,7 @@ $(document).ready(function(){
 
   canvasManager = new PaintBrush('#color-area');
   wireEvents();
-  
+
   $('.brush.blue').click();
    
   canvasManager.resizeCanvas(
@@ -34,7 +34,6 @@ $(document).ready(function(){
     $("canvas").parent().innerHeight()
   );
 });
-
 
 var setCurrentBrush = function(selectedPallet){
   $('.brush').removeClass('selected');
@@ -44,7 +43,31 @@ var setCurrentBrush = function(selectedPallet){
   currentBrush = brushes[selectedColor];
 };
 
+
 var wireEvents = function(){
+
+  $(window).resize(function(e){
+
+    var newHeight = $("canvas").parent().innerHeight();
+    var newWidth =  $("canvas").parent().innerWidth();
+
+    tempData = $('#color-area')[0].toDataURL('image/png');
+    canvasManager.resizeCanvas(newWidth, newHeight);
+
+    img = new Image();
+
+    img.height = newHeight;
+    img.width = newWidth;
+
+    img.src = tempData
+    canvasManager.brush.drawImage(img,0,0);
+  });
+
+  $('.btn.save').on('click', function(e){
+    e.preventDefault();
+    tempData = $('#color-area')[0].toDataURL('image/png');
+  });
+
   $('.brush').on('click',function(e){
     setCurrentBrush(e.target);
   });

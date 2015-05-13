@@ -8,3 +8,35 @@
   background-color: #F1EFE8;
   border: 2px solid #000;
 }
+
+.brush{
+  margin: 0px auto; 
+  width: 20%;
+  height: 10vh;
+  float: left;
+}
+
+.selected{   
+  border: 3px solid black;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+.red{
+  background-color: rgb(206, 82,  23);
+}
+
+.orange{
+  background-color: rgb(206, 133, 23);
+}
+
+.yellow{
+  background-color: rgb(206, 198, 23);
+}
+
+.green{
+  background-color: rgb(13,  156, 64);
+}
+
+.blue{
+  background-color: rgb(50,  111, 148);
+}

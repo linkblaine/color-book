@@ -8,7 +8,6 @@ $(document).ready(function(){
   var black  = 'rgb(0,   0,   0)';
   var white  = 'rgb(255, 255, 255)';
 
-
   blueBrush   = new PaintBrush('#color-area', blue);
   greenBrush  = new PaintBrush('#color-area', green);
   yellowBrush = new PaintBrush('#color-area', yellow);
@@ -17,11 +16,19 @@ $(document).ready(function(){
   blackBrush  = new PaintBrush('#color-area', black);
   whiteBrush  = new PaintBrush('#color-area', white);
 
+  brushes = {
+    blue: blueBrush,
+    green: greenBrush,
+    yellow: yellowBrush,
+    orange: orangeBrush,
+    red: redBrush
+  };
+
   canvasManager = new PaintBrush('#color-area');
- 
-  currentBrush = blueBrush;
   wireEvents();
   
+  $('.brush.blue').click();
+   
   canvasManager.resizeCanvas(
     $("canvas").parent().innerWidth(),
     $("canvas").parent().innerHeight()
@@ -29,7 +36,19 @@ $(document).ready(function(){
 });
 
 
+var setCurrentBrush = function(selectedPallet){
+  $('.brush').removeClass('selected');
+  $(selectedPallet).addClass('selected');
+  var selectedColor = $(selectedPallet).attr('class').split(" ")[1];
+  
+  currentBrush = brushes[selectedColor];
+};
+
 var wireEvents = function(){
+  $('.brush').on('click',function(e){
+    setCurrentBrush(e.target);
+  });
+
   $('#color-area').on('mousedown',function(e){
     currentBrush.startPath(e.offsetX, e.offsetY);
   });
